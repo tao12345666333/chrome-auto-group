@@ -52,16 +52,14 @@ const tabs = {
   },
 
   async createGroups(groupsData) {
-    for (const group of groupsData.groups) {
-      const ids = group.tabIds?.filter(id => typeof id === 'number' && id > 0);
-      if (ids?.length > 1) {
+    const tasks = groupsData.groups
+      .filter(g => g.tabIds?.filter(id => typeof id === 'number' && id > 0).length > 1)
+      .map(async (group) => {
+        const ids = group.tabIds.filter(id => typeof id === 'number' && id > 0);
         const groupId = await chrome.tabs.group({ tabIds: ids });
-        await chrome.tabGroups.update(groupId, {
-          title: group.name,
-          color: group.color || 'blue'
-        });
-      }
-    }
+        await chrome.tabGroups.update(groupId, { title: group.name, color: group.color || 'blue' });
+      });
+    await Promise.all(tasks);
   }
 };
 
