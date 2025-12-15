@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Auto Tab Grouper",
+  "version": "1.0",
+  "description": "Automatically group tabs using AI",
+  "permissions": [
+    "tabs",
+    "tabGroups",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Group Tabs"
+  },
+  "options_page": "options.html"
+}
