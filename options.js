@@ -15,7 +15,7 @@ async function loadSettings() {
 
 async function saveSettings(e) {
   e.preventDefault();
-  const settings = Object.fromEntries(fields.map(f => [f, $(f).value]));
+  const settings = Object.fromEntries(fields.map(f => [f, $(f).value.trim()]));
   try {
     await chrome.storage.sync.set(settings);
     showStatus('Settings saved!', 'success');

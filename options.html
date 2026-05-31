@@ -11,15 +11,17 @@
     <form id="settingsForm">
       <div class="form-group">
         <label for="apiUrl">API URL</label>
-        <input type="url" id="apiUrl" placeholder="https://api.openai.com/v1/chat/completions" required>
+        <input type="url" id="apiUrl" placeholder="https://api.openai.com/v1/chat/completions">
+        <small>Optional if using Chrome AI</small>
       </div>
       <div class="form-group">
         <label for="apiKey">API Key</label>
-        <input type="password" id="apiKey" placeholder="sk-..." required>
+        <input type="password" id="apiKey" placeholder="sk-...">
+        <small>Optional if using Chrome AI</small>
       </div>
       <div class="form-group">
         <label for="model">Model</label>
-        <input type="text" id="model" placeholder="gpt-3.5-turbo" required>
+        <input type="text" id="model" placeholder="gpt-3.5-turbo">
       </div>
       <button type="submit" class="btn btn-primary">Save Settings</button>
     </form>
