@@ -1,37 +1,57 @@
 # Chrome Auto Tab Grouper
 
-Smart tab grouping Chrome extension that automatically groups open tabs by content relevance using AI.
+A Chrome extension that groups open tabs by content relevance using AI.
 
 ## Features
 
-- Get URLs and titles of all open tabs
-- Call LLM API for intelligent grouping
-- Automatically create Chrome tab groups with colors
+- Supports two providers:
+  - **Chrome AI** (built-in Prompt API)
+  - **Custom API** (OpenAI-compatible chat completions endpoint)
+- Reads all open tabs (ID, title, URL) and asks the model to return JSON groups
+- Automatically creates Chrome tab groups in parallel
+- Supports group colors: `grey`, `blue`, `red`, `yellow`, `green`, `pink`, `purple`, `cyan`, `orange`
+- Skips invalid groups (requires at least 2 valid numeric tab IDs)
 
 ## Installation
 
-1. Open Chrome extensions page `chrome://extensions/`
-2. Enable "Developer mode"
-3. Click "Load unpacked"
+1. Open `chrome://extensions/`
+2. Enable **Developer mode**
+3. Click **Load unpacked**
 4. Select this project folder
 
 ## Configuration
 
-1. Click extension icon, select "Settings"
-2. Fill in your LLM API configuration:
-   - API URL (e.g.: `https://api.openai.com/v1/chat/completions`)
-   - API Key
-   - Model name (e.g.: `gpt-5-mini-2025-08-07`)
+1. Click the extension icon, then click **Settings**
+2. Configure fields in the options page:
+   - `API URL` (example: `https://api.openai.com/v1/chat/completions`)
+   - `API Key`
+   - `Model` (optional, default is `gpt-3.5-turbo`)
+
+Notes:
+- If you use **Chrome AI**, API URL and API Key are optional.
+- If you use **Custom API**, API URL and API Key are required.
 
 ## Usage
 
 1. Open multiple tabs
-2. Click extension icon
-3. Click "Group Tabs"
-4. Wait for AI analysis and automatic tab group creation
+2. Click the extension icon
+3. Choose provider:
+   - **Chrome AI (免费)**
+   - **Custom API**
+4. Click **Group Tabs**
+5. Wait for grouping to complete
 
-## File Structure
+## Chrome AI Mode Notes
 
-- `manifest.json` - Extension configuration
-- `popup.html/js` - Popup window interface
-- `options.html/js` - Settings page
+- Requires browser/device support for `LanguageModel`
+- Handles model download progress in the popup status area
+- Uses JSON response constraints to enforce `{"groups":[...]}` output
+
+## Project Structure
+
+- `manifest.json` - Extension manifest (MV3)
+- `popup.html` - Popup UI (provider selector + actions)
+- `popup.js` - Grouping workflow, provider switch, model calls
+- `options.html` - Settings page
+- `options.js` - Settings persistence via `chrome.storage.sync`
+- `styles.css` - Shared UI styles
